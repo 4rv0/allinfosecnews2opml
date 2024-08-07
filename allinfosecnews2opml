@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+# quick script to take the README.md file from the repository 
+# https://github.com/foorilla/allinfosecnews_sources
+# and parse, convert, and export as OPML for easy importation into an RSS reader
+# August 2024, 4rv0
+# Feel free to copy and use this code, but no guarantees and no liability for 
+# what you do with it.
+
+import sys
+from opyml import OPML, Outline
+
+def main(path_to_readme):
+    document = OPML()
+    try:
+        with open(path_to_readme, "r", encoding="UTF-8") as f:
+            # ignore anything without something that resembles a URL
+            lines = filter(None, (line.rstrip() for line in f if "http" in line))
+            for line in lines:
+                # find the description (in the markdown [] for the link
+                name_first = line.find("[") + 1
+                name_last = line.find("]")
+                name = line[name_first:name_last]
+
+                # for some dumb reason, I wasn't having much luck substringing things, 
+                # so this just makes a copy of what's left of the line
+                next_part = line[name_last+1:]
+               
+                # find the stuff in the markdown () link part
+                url_first = next_part.find("]")+2
+                url_last = next_part.find(")")
+                url = next_part[url_first:url_last]
+
+                final_part = next_part[url_last:]
+
+                
+                rss_start = final_part.find("(RSS feed: ") + 11
+                # this makes the fragile assumption that each line will end with the RSS url
+                # and that may not always be the case.
+                rss = final_part[rss_start:].strip(")")
+                
+                document.body.outlines.append(Outline(text=name,title=name,type="rss",xml_url=rss,html_url=url))
+    except:
+            print("File read error")
+            exit()
+
+    xml = document.to_xml()
+    print(xml)
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print(f"usage: {sys.argv[0]} <path to README.md>")
+        exit()
+    path_to_readme = sys.argv[1]
+    main(path_to_readme)

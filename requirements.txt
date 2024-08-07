@@ -1,0 +1,2 @@
+defusedxml==0.7.1
+opyml==0.1.2
