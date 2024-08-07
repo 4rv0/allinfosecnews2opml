@@ -2,8 +2,9 @@
 A small python script to convert the RSS feeds listed in https://github.com/foorilla/allinfosecnews_sources and convert them to OPML for easy importing to an RSS reader
 
 ## installation and execution
-1) clone this repo
-2) clone https://github.com/foorilla/allinfosecnews_sources
+
+1) clone https://github.com/foorilla/allinfosecnews_sources somewhere
+2) clone this repo in a different place
 3) from this repo, set up a python3 venv
 ```
 $ python3 -m venv venv
