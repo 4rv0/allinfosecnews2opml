@@ -17,4 +17,8 @@ $ python3 -m pip install -r ./requirements.txt
 ```
 $ python3 ./allinfosecnews2opml </path/to/allinfosecnews_sources/README.md> > <outfile.opml>
 ```
+## or you can just grab the output file I made
+
+It's "allinfosecnews_sources.opml", and was added on August 7th, at 2:00PM PST.
+
 
