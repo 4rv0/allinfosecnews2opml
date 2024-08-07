@@ -1,2 +1,6 @@
+beautifulsoup4==4.12.3
+bs4==0.0.2
 defusedxml==0.7.1
+lxml==5.2.2
 opyml==0.1.2
+soupsieve==2.5

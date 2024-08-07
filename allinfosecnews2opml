@@ -8,6 +8,13 @@
 
 import sys
 from opyml import OPML, Outline
+from bs4 import BeautifulSoup
+import lxml
+
+def pretty_xml(xml):
+    bs = BeautifulSoup(xml, 'xml')
+    pretty_xml = bs.prettify()
+    return pretty_xml
 
 def main(path_to_readme):
     document = OPML()
@@ -44,7 +51,8 @@ def main(path_to_readme):
             exit()
 
     xml = document.to_xml()
-    print(xml)
+    nice_xml = pretty_xml(xml)
+    print(nice_xml)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
