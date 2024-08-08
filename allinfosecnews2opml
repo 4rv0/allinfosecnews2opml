@@ -44,13 +44,16 @@ def main(path_to_readme):
                 # this makes the fragile assumption that each line will end with the RSS url
                 # and that may not always be the case.
                 rss = final_part[rss_start:].strip(")")
+                # adding some logic to make some urls parse right when translated to unicode
+                rss = rss.replace("&amp;", "&") 
+                #print(rss)
                 
                 document.body.outlines.append(Outline(text=name,title=name,type="rss",xml_url=rss,html_url=url))
     except:
             print("File read error")
             exit()
-
     xml = document.to_xml()
+    #print(xml)
     nice_xml = pretty_xml(xml)
     print(nice_xml)
 
